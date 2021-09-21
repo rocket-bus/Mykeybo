@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define KC_CAD LCTL(LALT(KC_DEL))  // Ctrl+Alt+Del
+/* #define KC_CAD LCTL(LALT(KC_DEL))  // Ctrl+Alt+Del */
 
 enum layer_names {
     _BASE,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
-        case M_HNZN_TGL:
+        case M_HNZN_TGL:  /* 全角/半角トグル */
          if (record->event.pressed) {
              SEND_STRING(SS_LALT("`"));
          } else {
