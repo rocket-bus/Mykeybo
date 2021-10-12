@@ -19,6 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
-#define TAPPING_TERM 180
+#define TAPPING_TERM 190
 
 // #define PERMISSIVE_HOLD_PER_KEY

@@ -35,7 +35,7 @@ enum custom_keycodes {
 #define KC_SSSF  RSFT_T(KC_SLSH)
 #define KC_APAL  ALT_T(KC_APP)
 #define KC_ESGU  LWIN_T(KC_ESC)
-#define KC_ZSF   LSFT_T(KC_Z)
+#define KC_ZCT   LCTL_T(KC_Z)
 
 static bool lower_pressed = false;  // Lowerキー記憶用
 static bool raise_pressed = false;  // Raiseキー記憶用
@@ -58,13 +58,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      M_HNZN_TGL,
     KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,
-    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SSSF,   M_DL_CUR,
+    KC_LSFT,  KC_ZCT,   KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SSSF,   M_DL_CUR,
                                           KC_ESGU,   M_SP_LO,    M_EN_AD,  M_BS_RA,    KC_APAL
                                 //  KC_ESGU,     LT(1, KC_SPC),    LT(3, KC_ENT),  LT(2, KC_BSPC),    KC_APAL
   ),
 
   [_LOWER] = LAYOUT_reviung41(
-    A(KC_TAB),    KC_EXLM,     KC_AT,    KC_HASH,  KC_DLR,    KC_PERC,                KC_P7,    KC_P8,    KC_P9,  KC_PPLS,  KC_PAST,  _______,
+    A(KC_TAB),    KC_EXLM,     KC_AT,    KC_HASH,  KC_DLR,    KC_PERC,                KC_P7,    KC_P8,    KC_P9,  KC_PPLS,  KC_PAST,  KC_BSPC,
     S(KC_LGUI),   KC_UNDS,     KC_PIPE,  KC_UP,    KC_LCBR,   KC_RCBR,                KC_P4,    KC_P5,    KC_P6,  KC_PMNS,  KC_PSLS,    _______,
     KC_LSFT,      C(KC_PGUP),  KC_LEFT,  KC_DOWN,  KC_RGHT,   C(KC_PGDN),             KC_P1,    KC_P2,    KC_P3,  KC_PEQL,  A(KC_F4),  KC_CALC,
                                                          KC_LGUI,   _______,  KC_BSPC,   KC_P0,    KC_PDOT
