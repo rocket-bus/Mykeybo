@@ -35,18 +35,23 @@ enum custom_keycodes {
 #define KC_SSSF  RSFT_T(KC_SLSH)
 #define KC_APAL  ALT_T(KC_APP)
 #define KC_ESGU  LWIN_T(KC_ESC)
+#define KC_ZSF   LSFT_T(KC_Z)
 
 static bool lower_pressed = false;  // Lowerキー記憶用
 static bool raise_pressed = false;  // Raiseキー記憶用
 static bool adj_pressed   = false;  // Adjustキー記憶用
 static bool cur_pressed   = false;  // Cursolキー記憶用
+static uint16_t lower_pressed_time = 0; // Lowerキー押し下げ時間
+static uint16_t raise_pressed_time = 0; // Raiseキー押し下げ時間
 static uint16_t adj_pressed_time = 0; // Adjustキー押し下げ時間
+static uint16_t cur_pressed_time = 0; // cursolキー押し下げ時間
 
 // Base Layer Tap-Hold
 // #define LT_SPLO  LT(_LOWER, KC_SPC)
 // #define LT_BSRA  LT(_RAISE, KC_BSPC)
 // #define LT_ENAD  LT(_ADJUST, KC_ENT)
 // #define LT_DLCUR LT(_CURSOL, KC_DEL)
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -89,7 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint16_t lower_diff_time = 0;
+    uint16_t raise_diff_time = 0;
     uint16_t adj_diff_time = 0;
+    uint16_t cur_diff_time = 0;
     switch(keycode){
         case M_HNZN_TGL:  /* 全角/半角トグル */
          if (record->event.pressed) {
@@ -102,13 +110,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_SP_LO:   // Lower/SPACEキー押下時
          if (record->event.pressed) {
              lower_pressed = true;  // Lowerキーが押されたことを記憶
+             lower_pressed_time = record->event.time;
 
              layer_on(_LOWER);
          } else {
              layer_off(_LOWER);
 
+             lower_diff_time = TIMER_DIFF_16(record->event.time, lower_pressed_time);
 
-            if (lower_pressed) {
+            if (lower_pressed && lower_diff_time < TAPPING_TERM) {
                register_code(KC_SPC);
                unregister_code(KC_SPC);
             }
@@ -120,13 +130,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_BS_RA:   // RAISE/BackSpaceキー押下時
          if (record->event.pressed) {
              raise_pressed = true;  // Raiseキーが押されたことを記憶
+             raise_pressed_time = record->event.time;
 
              layer_on(_RAISE);
          } else {
              layer_off(_RAISE);
 
+             raise_diff_time = TIMER_DIFF_16(record->event.time, raise_pressed_time);
 
-            if (raise_pressed) {
+            if (raise_pressed && raise_diff_time < TAPPING_TERM) {
                register_code(KC_BSPC);
                unregister_code(KC_BSPC);
             }
@@ -158,13 +170,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_DL_CUR:   // CURSOL/Delキー押下時
          if (record->event.pressed) {
              cur_pressed = true;  // Cursolキーが押されたことを記憶
+             cur_pressed_time = record->event.time;
 
              layer_on(_CURSOL);
          } else {
              layer_off(_CURSOL);
 
+             cur_diff_time = TIMER_DIFF_16(record->event.time, cur_pressed_time);
 
-            if (cur_pressed) {
+            if (cur_pressed && cur_diff_time < TAPPING_TERM) {
                register_code(KC_DEL);
                unregister_code(KC_DEL);
             }
