@@ -47,12 +47,6 @@ static uint16_t raise_pressed_time = 0; // Raiseキー押し下げ時間
 static uint16_t adj_pressed_time = 0; // Adjustキー押し下げ時間
 static uint16_t cur_pressed_time = 0; // cursolキー押し下げ時間
 
-// Base Layer Tap-Hold
-// #define LT_SPLO  LT(_LOWER, KC_SPC)
-// #define LT_BSRA  LT(_RAISE, KC_BSPC)
-// #define LT_ENAD  LT(_ADJUST, KC_ENT)
-// #define LT_DLCUR LT(_CURSOL, KC_DEL)
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
